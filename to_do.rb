@@ -1,4 +1,5 @@
 require './lib/task'
+require './lib/list'
 
 @list = []
 @tasks = []
@@ -33,39 +34,50 @@ end
 
 def add_list
   puts "Enter the name of your list here:"
-  list_name = gets.chomp
-  @list << List.new(list_name)
+  new_list = gets.chomp
+  @list << List.new(new_list)
   puts "List added.\n\n"
 end
 
 def add_task
+  show_lists
+  puts "Enter the number of the list you would like to add a task to"
+  list_selection = gets.chomp.to_i
   puts "Enter a description of the new task:"
   user_description = gets.chomp
-  @tasks << Task.new(user_description)
+  newTask = Task.new(user_description)
+  @list[list_selection].add_task(newTask)
   puts "Task added.\n\n"
 end
 
 def delete_task
-  list_tasks
+  puts show_lists
+  puts "Which list would you like to edit?"
+  list_deletion = gets.chomp.to_i
+  @list[list_deletion].tasks.each_with_index do |x, index|
+    puts "#{index}. #{x.description}"
+  end
   puts "Enter the number of the task you would like deleted"
   delete_index = gets.chomp.to_i
-  @tasks.delete_at(delete_index)
-  list_tasks
+
+  @list[list_deletion].tasks.delete_at(delete_index)
+  puts "your task was deleted"
 end
 
 def show_lists
   puts "Here are the lists:"
-  @list.each_with_index do |list, index|
-    puts list.list_name + ' ' + index.to_s
+  @list.each_with_index do |x, index|
+    puts x.list_name + ' ' + index.to_s
   end
   puts "\n"
 end
 
 def list_tasks
+  show_lists
+  puts "Enter the number of the list you would like to explore"
+  list_selection = gets.chomp.to_i
   puts "Here are all of your tasks:"
-  @tasks.each_with_index do |task, index|
-    puts task.description + ' '+ index.to_s
-  end
+  @list[list_selection].display_tasks
   puts "\n"
 end
 
