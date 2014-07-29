@@ -1,8 +1,9 @@
 class Task
 
-  def initialize(description, priority)
+  def initialize(description, priority, due_date)
     @description = description
     @priority = priority
+    @due_date = due_date
   end
 
   def description
@@ -12,6 +13,9 @@ class Task
   def priority
     @priority
   end
-end
 
+  def due_date
+    @due_date
+  end
+end
 

@@ -11,6 +11,7 @@ def main_menu
     puts "Press 'a' to add a task"
     puts "Press 'l' to list all of your tasks"
     puts "Press 'd' to delete a task."
+    puts "press 'o' to organize your tasks"
     puts "Press 'x' to exit."
     main_choice = gets.chomp
     if main_choice == 'a'
@@ -23,7 +24,9 @@ def main_menu
       list_tasks
     elsif main_choice == 'd'
       delete_task
-    elsif main_choice== 'x'
+    elsif main_choice == 'o'
+      organize_task
+    elsif main_choice == 'x'
       puts "Goodbye!"
       exit
     else
@@ -47,7 +50,9 @@ def add_task
   user_description = gets.chomp
   puts "Enter the priority level of your task from 1-5."
   user_priority = gets.chomp.to_i
-  newTask = Task.new(user_description, user_priority)
+  puts "Enter a due date for your task: i.e.(7-12-14)"
+  user_date = gets.chomp.to_s
+  newTask = Task.new(user_description, user_priority, user_date)
   @list[list_selection].add_task(newTask)
   puts "Task added.\n\n"
 end
@@ -81,6 +86,24 @@ def list_tasks
   puts "Here are all of your tasks:"
   @list[list_selection].display_tasks
   puts "\n"
+end
+
+def organize_task
+  puts "Which list would you like to organize"
+  show_lists
+  list_selection = gets.chomp.to_i
+  puts "Sort by 'k' priority, 'f' date"
+  organize = gets.chomp
+  if organize == 'k'
+    @list[list_selection].priority_sort
+    @list[list_selection].display_tasks
+    puts "\n\n"
+  elsif
+    organize == 'f'
+    @list[list_selection].date_sort
+    @list[list_selection].display_tasks
+    puts "\n\n"
+  end
 end
 
 main_menu
