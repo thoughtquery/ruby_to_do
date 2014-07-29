@@ -45,7 +45,9 @@ def add_task
   list_selection = gets.chomp.to_i
   puts "Enter a description of the new task:"
   user_description = gets.chomp
-  newTask = Task.new(user_description)
+  puts "Enter the priority level of your task from 1-5."
+  user_priority = gets.chomp.to_i
+  newTask = Task.new(user_description, user_priority)
   @list[list_selection].add_task(newTask)
   puts "Task added.\n\n"
 end

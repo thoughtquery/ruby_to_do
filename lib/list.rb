@@ -19,8 +19,9 @@ class List
 
   def display_tasks
     @tasks.each do |task|
-      puts task.description
+      puts task.description + ", " + "priority level:" + " " + "#{task.priority}"
     end
   end
+
 end
 
